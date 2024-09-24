@@ -1,0 +1,10 @@
+---
+- name: Copy file 
+  hosts: all
+  become: true
+  tasks:
+    - name: Copy index file to nodes
+      copy:
+        src: /home/jinu/index.html
+        dest: /var/www/html/
+        mode: 0644

@@ -1,0 +1,43 @@
+---
+- name: Create set up for tomcat
+  hosts: all
+  become: true
+
+  vars:
+    tomcat: apache-tomcat-10.1.30
+
+  tasks:
+
+    - name: java installation in RedHat
+      yum:
+        name: java
+        state: present
+      when: ansible_os_family == "RedHat"
+
+    - name: java installation in ubuntu
+      apt:
+        name: default-jdk
+        state: present
+      when: ansible_os_family == "Debian"
+
+    - name: download tomcat from browser
+      get_url:
+        url: https://dlcdn.apache.org/tomcat/tomcat-10/v10.1.30/bin/{{tomcat}}.tar.gz
+        dest: /opt
+
+    - name: Extract the downloaded tar file
+      unarchive:
+        src: /opt/{{tomcat}}.tar.gz
+        dest: /opt
+        remote_src: yes
+
+    - name: Give full permission to file
+      file:
+        path: /opt/{{tomcat}}/bin/startup.sh
+        mode: 0777
+
+    - name: start the service
+      shell: nohup ./startup.sh
+      args: 
+        chdir: /opt/{{tomcat}}/bin 
+

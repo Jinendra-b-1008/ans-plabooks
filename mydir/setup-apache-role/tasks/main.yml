@@ -1,0 +1,21 @@
+---
+# tasks file for setup-apache-role.yml
+- name: Install httpd package
+  yum:
+    name: "{{ httpd_package }}"
+    state: present
+  when: ansible_os_family == "RedHat"
+  notify: start httpd
+
+- name: Install apache package
+  apt:
+    name: "{{ apache_package }}"
+    state: present
+  when: ansible_os_family == "Debian"
+  notify: start apache
+                   
+- name: copy the index.html
+  copy:
+    src: index.html
+    dest: /var/www/html
+    mode: 0666  

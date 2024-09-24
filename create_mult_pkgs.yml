@@ -1,0 +1,9 @@
+---
+- name: Creating multiple pkgs
+  hosts: all
+  become: true
+  tasks:
+    - name: creating the packages
+      yum:
+        name: ['tree','httpd','git','docker*']
+        state: present

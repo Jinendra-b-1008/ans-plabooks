@@ -1,0 +1,11 @@
+---
+- name: create file
+  hosts: all
+  become: true
+  tasks:
+    - name: create new file
+      file:
+        path: /home/jinu/demo
+        state: touch
+        owner: kaavi
+        mode: 0644

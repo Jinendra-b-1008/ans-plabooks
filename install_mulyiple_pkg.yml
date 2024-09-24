@@ -1,0 +1,30 @@
+---
+- name: Installing multiple packages
+  hosts: all
+  become: true
+  tasks:
+
+    - name: Install pkg for RedHat
+      yum:
+        name: ['httpd','tree','docker','git']
+        state: present
+      when: ansible_os_family == "RedHat"
+
+    - name: start httpd service
+      service:
+        name: httpd
+        state: started
+      when: ansible_os_family == "RedHat"
+
+    - name: Install apache pkg for Ubuntu
+      apt:
+        name: ['apache2','tree','git']
+        state: present
+      when: ansible_os_family == "Debian"
+
+    - name: Start apache2 service
+      service:
+        name: apache2
+        state: started
+      when: ansible_os_family == "Debian"
+

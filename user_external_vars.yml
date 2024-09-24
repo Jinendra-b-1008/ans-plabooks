@@ -1,0 +1,13 @@
+---
+- name: create users external user
+  hosts: all
+  become: true
+
+  vars_files:
+    - user_data.yml
+
+  tasks:
+    - name: create user {{user1}}
+      user:
+        name: '{{ user1 }}'
+        state: present

@@ -1,0 +1,16 @@
+---
+- name: Httpd package operation
+  hosts: all
+  become: true
+  tasks:
+    - name: Install Httpd
+      yum:
+        name: httpd
+        state: present
+      notify: start apache
+
+  handlers:
+    - name: start apache
+      service:
+        name: httpd
+        state: started

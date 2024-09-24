@@ -1,0 +1,4 @@
+---
+# vars file for setup-apache-role.yml
+httpd_package: "httpd"
+apache_package: "apache2"

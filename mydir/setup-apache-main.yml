@@ -1,0 +1,6 @@
+---
+- name: Start the execution of pB
+  hosts: all
+  become: true
+  roles:
+    - setup-apache-role 

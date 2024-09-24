@@ -1,0 +1,14 @@
+---
+- name: create directory
+  hosts: all
+  become: true
+  tasks:
+    - name: new directory
+      file:
+        path: /home/jinu/dir1
+        state: directory
+
+    - name: directory inside directory
+      file:
+        path: /home/jinu/dir1/subdir1/subdir2
+        state: directory
